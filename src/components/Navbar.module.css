@@ -1,0 +1,9 @@
+.nav {
+    grid-area: n;
+    background-color: cornflowerblue;
+}
+
+.item {
+    color: white;
+    font-size: xxx-large;
+}

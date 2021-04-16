@@ -4,25 +4,11 @@
             "h h "
             "n c";
     grid-template-rows: 60px 1fr;
-    grid-template-columns: 2fr 10fr;
+    grid-template-columns: 4fr 10fr;
     /*grid-gap: 10px;*/
 }
 
-.header {
-    grid-area: h;
-    background-color: aquamarine;
-}
 
-.header img {
-    width: 80px;
-}
 
-.nav {
-    grid-area: n;
-    background-color: cornflowerblue;
-}
 
-.content {
-    grid-area: c;
-    background-color: blanchedalmond;
-}
+

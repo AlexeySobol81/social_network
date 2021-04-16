@@ -1,10 +1,10 @@
 import React from 'react';
+import s from './Header.module.css';
 
 const Header = () => {
     return (
-        <header className="header">
-            <img
-                src={"https://img.freepik.com/free-psd/engraved-black-logo-mockup_125540-223.jpg?size=338&ext=jpg"}/>
+        <header className={s.header}>
+            <img src={'/unlimited-512.png'}/>
         </header>
     )
 }
