@@ -9,6 +9,7 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {RootStateType} from "./redux/state";
+import Friends from "./components/Friends/Friends";
 
 type RootStatePropsType = {
     state: RootStateType
@@ -29,6 +30,7 @@ const App = (props: RootStatePropsType) => {
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>
+                    <Route path={'/friends'} render={() => <Friends/>}/>
                 </div>
             </div>
         </BrowserRouter>

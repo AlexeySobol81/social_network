@@ -13,3 +13,7 @@
 .item a.activeLink {
     color: gold;
 }
+
+.itemFriends {
+    margin-top: 50px;
+}
