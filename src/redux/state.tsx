@@ -1,4 +1,5 @@
 import React from 'react'
+import {rerenderEntireTree} from "../render";
 
 export type MessageType = {
     id: number
@@ -19,10 +20,12 @@ export type FriendType = {
 }
 export type ProfilePageType = {
     posts: Array<PostType>
+    newPostText: string
 }
 export type DialogPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
+    newMessageText: string
 }
 export type SidebarType = {
     friends: Array<FriendType>
@@ -33,6 +36,7 @@ export type RootStateType = {
     sidebar: SidebarType
 }
 
+
 let state: RootStateType = {
     profilePage: {
         posts: [
@@ -40,7 +44,8 @@ let state: RootStateType = {
             {id: 2, message: "It's my first post", likesCount: 150},
             {id: 3, message: 'Cool', likesCount: 5},
             {id: 4, message: 'Yeah!!!', likesCount: 18},
-        ]
+        ],
+        newPostText: ''
     },
     dialogsPage: {
         dialogs: [
@@ -54,15 +59,43 @@ let state: RootStateType = {
             {id: 2, message: 'How are you?'},
             {id: 3, message: 'Cool'},
             {id: 4, message: 'Cool'},
-        ]
+        ],
+        newMessageText: ''
     },
     sidebar: {
         friends: [
             {id: 1, name: 'Denis'},
-            {id: 1, name: 'Yulya'},
-            {id: 1, name: 'German'},
+            {id: 2, name: 'Yulya'},
+            {id: 3, name: 'German'},
         ]
     }
+}
+
+export let addPost = () => {
+    let newPost: PostType = {
+        id: new Date().getTime(),
+        message: state.profilePage.newPostText,
+        likesCount: 0
+    }
+    state.profilePage.posts.push(newPost)
+    rerenderEntireTree(state)
+}
+export let  sendMessage = () => {
+    let newMessage: MessageType = {
+        id: new Date().getTime(),
+        message: state.dialogsPage.newMessageText
+    }
+    state.dialogsPage.messages.push(newMessage)
+    rerenderEntireTree(state)
+
+}
+export let updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText
+    rerenderEntireTree(state)
+}
+export let updateNewMessageText = (newText: string) => {
+    state.dialogsPage.newMessageText = newText
+    rerenderEntireTree(state)
 }
 
 export default state

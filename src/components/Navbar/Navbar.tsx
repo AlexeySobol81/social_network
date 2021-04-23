@@ -3,10 +3,7 @@ import s from './Navbar.module.css';
 import {NavLink, Route} from "react-router-dom";
 import Friends from "../Friends/Friends";
 
-type NavbarPropsType = {
-}
-
-const Navbar = (props: NavbarPropsType) => {
+const Navbar = () => {
     return (
         <div className={s.nav}>
             <div className={s.item}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Friends.module.css';
 
-const Friends = () => {
+export const Friends = () => {
     return (
         <div className={s.container}>
             <div className={s.item}>
