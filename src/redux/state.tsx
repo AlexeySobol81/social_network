@@ -1,5 +1,4 @@
 import React from 'react'
-import {rerenderEntireTree} from "../render";
 
 export type MessageType = {
     id: number
@@ -35,7 +34,6 @@ export type RootStateType = {
     dialogsPage: DialogPageType
     sidebar: SidebarType
 }
-
 
 let state: RootStateType = {
     profilePage: {
@@ -96,6 +94,14 @@ export let updateNewPostText = (newText: string) => {
 export let updateNewMessageText = (newText: string) => {
     state.dialogsPage.newMessageText = newText
     rerenderEntireTree(state)
+}
+
+let rerenderEntireTree = (state: RootStateType) => {
+    console.log('State change')
+}
+
+export const subscribe = (observer: (state: RootStateType)=>void) => {
+    rerenderEntireTree = observer
 }
 
 export default state
