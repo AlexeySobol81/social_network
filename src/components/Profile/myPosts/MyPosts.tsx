@@ -2,13 +2,12 @@ import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css';
 import {Button, TextField} from "@material-ui/core";
 import Post from "./posts/Post";
-import {PostType} from "../../../redux/state";
+import {ActionsTypes, addPostAC, PostType} from "../../../redux/store";
 
 type PostsPropsType = {
     posts: Array<PostType>
-    addPost: (postMessage: string) => void
-    updateNewPostText: (newText: string) => void
     newPostText: string
+    dispatch: (action: ActionsTypes) => void
 }
 
 const MyPosts = (props: PostsPropsType) => {
@@ -16,12 +15,12 @@ const MyPosts = (props: PostsPropsType) => {
     let postsElements = props.posts.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
     let addPost = () => {
-        props.addPost(props.newPostText)
-        props.updateNewPostText('')
+        props.dispatch({type: "ADD-POST", newPost: props.newPostText})
+        props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: ''})
     }
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPostText(e.currentTarget.value)
+        props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: (e.currentTarget.value)})
     }
 
     return (
