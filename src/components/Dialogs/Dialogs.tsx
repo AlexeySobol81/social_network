@@ -2,9 +2,9 @@ import React, {ChangeEvent} from 'react'
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+import {sendMessageAC, updateNewMessageTextAC} from "../../redux/dialogsReucer";
+import {Button, TextField} from "@material-ui/core";
 import {ActionsTypes, DialogPageType} from "../../redux/store";
-import {Button, Icon, TextField} from "@material-ui/core";
-import classes from "*.module.css";
 
 type DialogsPagePropsType = {
     state: DialogPageType
@@ -18,11 +18,11 @@ const Dialogs = (props: DialogsPagePropsType) => {
     let messagesElements = props.state.messages.map(m => <Message key={m.id} message={m.message}/>)
 
     let sendMessage = () => {
-        props.dispatch({type: "SEND-MESSAGE", newMessage: props.newMessageText})
-        props.dispatch({type: "UPDATE-NEW-MESSAGE-TEXT", newText: ''})
+        props.dispatch(sendMessageAC(props.newMessageText))
+        props.dispatch(updateNewMessageTextAC(''))
     }
     let onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({type: "UPDATE-NEW-MESSAGE-TEXT", newText: (e.currentTarget.value)})
+        props.dispatch(updateNewMessageTextAC(e.currentTarget.value))
     }
 
     return (
