@@ -2,14 +2,14 @@ import React, {ChangeEvent} from 'react'
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {sendMessageAC, updateNewMessageTextAC} from "../../redux/dialogsReucer";
+import {InitialDialogPageStateType, sendMessageAC, updateNewMessageTextAC} from "../../redux/dialogsReucer";
 import {Button, TextField} from "@material-ui/core";
-import {ActionsTypes, DialogPageType} from "../../redux/store";
+import {ActionsTypes} from "../../redux/reduxStore";
 
 type DialogsPagePropsType = {
-    state: DialogPageType
-    newMessageText: string
+    state: InitialDialogPageStateType
     dispatch: (action: ActionsTypes) => void
+    newMessageText: string
 }
 
 const Dialogs = (props: DialogsPagePropsType) => {

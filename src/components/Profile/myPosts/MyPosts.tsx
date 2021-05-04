@@ -2,8 +2,8 @@ import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css';
 import {Button, TextField} from "@material-ui/core";
 import Post from "./posts/Post";
-import {addPostAC, updateNewPostTextAC} from "../../../redux/pfofileReducer";
-import {ActionsTypes, PostType} from "../../../redux/store";
+import {addPostAC, PostType, updateNewPostTextAC} from "../../../redux/pfofileReducer";
+import {ActionsTypes} from "../../../redux/reduxStore";
 
 type PostsPropsType = {
     posts: Array<PostType>
