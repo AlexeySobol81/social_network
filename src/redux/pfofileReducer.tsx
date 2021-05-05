@@ -9,7 +9,6 @@ export type PostType = {
 export type InitialProfileReducerStateType = typeof initialState
 type AddPostACType = {
     type: typeof ADD_POST
-    newPost: string
 }
 type UpdateNewPostTextACType ={
     type: typeof UPDATE_NEW_POST_TEXT
@@ -32,10 +31,11 @@ const profileReducer = (state: InitialProfileReducerStateType = initialState, ac
         case 'ADD-POST':
             let newPost: PostType = {
                 id: new Date().getTime(),
-                message: action.newPost,
+                message: state.newPostText,
                 likesCount: 0
             }
             state.posts.push(newPost)
+            state.newPostText= ''
             return state
         case 'UPDATE-NEW-POST-TEXT':
             state.newPostText = action.newText
@@ -46,7 +46,7 @@ const profileReducer = (state: InitialProfileReducerStateType = initialState, ac
     return state
 }
 
-export const addPostAC = (newPost: string): AddPostACType => ({type: ADD_POST, newPost: newPost}) as const
+export const addPostAC = (): AddPostACType => ({type: ADD_POST}) as const
 export const updateNewPostTextAC = (newText: string): UpdateNewPostTextACType => {
     return {
         type: UPDATE_NEW_POST_TEXT,

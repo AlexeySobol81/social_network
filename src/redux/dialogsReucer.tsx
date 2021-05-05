@@ -16,7 +16,6 @@ type UpdateNewMessageTextACType = {
 }
 type SendMessageACType = {
     type: typeof SEND_MESSAGE
-    newMessage: string
 }
 
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
@@ -43,9 +42,10 @@ const dialogsReducer  = (state: InitialDialogPageStateType = initialState, actio
         case "SEND-MESSAGE":
             let newMessage: MessageType = {
                 id: new Date().getTime(),
-                message: action.newMessage
+                message: state.newMessageText
             }
             state.messages.push(newMessage)
+            state.newMessageText=''
             return state
         case "UPDATE-NEW-MESSAGE-TEXT":
             state.newMessageText = action.newText
@@ -63,10 +63,9 @@ export const updateNewMessageTextAC = (newText: string): UpdateNewMessageTextACT
         newText: newText
     } as const
 }
-export const sendMessageAC = (newMessage: string): SendMessageACType => {
+export const sendMessageAC = (): SendMessageACType => {
     return {
-        type: SEND_MESSAGE,
-        newMessage: newMessage
+        type: SEND_MESSAGE
     } as const
 }
 

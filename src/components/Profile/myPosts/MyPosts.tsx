@@ -8,20 +8,21 @@ import {ActionsTypes} from "../../../redux/reduxStore";
 type PostsPropsType = {
     posts: Array<PostType>
     newPostText: string
-    dispatch: (action: ActionsTypes) => void
+// dispatch={props.dispatch}
+    onPostChange: (text: string) => void
+    addPost: () => void
 }
 
 const MyPosts = (props: PostsPropsType) => {
 
     let postsElements = props.posts.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
-    let addPost = () => {
-        props.dispatch(addPostAC(props.newPostText))
-        props.dispatch(updateNewPostTextAC(''))
+    let addPost = () =>{
+        props.addPost()
     }
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewPostTextAC(e.currentTarget.value))
+        props.onPostChange(e.currentTarget.value)
     }
 
     return (
