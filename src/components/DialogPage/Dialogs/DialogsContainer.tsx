@@ -1,39 +1,35 @@
 import React from 'react'
-import {
-    DialogType,
-    MessageType,
-    sendMessageAC,
-    updateNewMessageTextAC
-}
-from "../../../redux/dialogsReucer";
-import {ActionsTypes} from "../../../redux/reduxStore";
+import {sendMessageAC, updateNewMessageTextAC}
+    from "../../../redux/dialogsReucer";
 import Dialogs from "./Dialogs";
+import StoreContext from "../../../StoreContext";
 
-type DialogsPageContainerPropsType = {
-    newMessageText: string
-    dispatch: (action: ActionsTypes) => void
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
-}
 
-const DialogsContainer = (props: DialogsPageContainerPropsType) => {
-
-    let sendMessage = () => {
-        props.dispatch(sendMessageAC())
-    }
-    let onMessageChange = (text: string) => {
-        let action = updateNewMessageTextAC(text)
-        props.dispatch(action)
-    }
+const DialogsContainer = () => {
 
     return (
-        <Dialogs
-            sendMessage={sendMessage}
-            newMessageText={props.newMessageText}
-            onMessageChange={onMessageChange}
-            dialogs={props.dialogs}
-            messages={props.messages}
-        />
+        <StoreContext.Consumer>
+            {
+                (store) => {
+
+                    let sendMessage = () => {
+                        store.dispatch(sendMessageAC())
+                    }
+                    let onMessageChange = (text: string) => {
+                        let action = updateNewMessageTextAC(text)
+                        store.dispatch(action)
+                    }
+
+                    return (<Dialogs
+                        sendMessage={sendMessage}
+                        newMessageText={store.getState().dialogsPage.newMessageText}
+                        onMessageChange={onMessageChange}
+                        dialogs={store.getState().dialogsPage.dialogs}
+                        messages={store.getState().dialogsPage.messages}
+                    />)
+                }
+            }
+        </StoreContext.Consumer>
     )
 }
 

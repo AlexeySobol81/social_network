@@ -7,16 +7,11 @@ import {BrowserRouter, Route} from 'react-router-dom'
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {RootStoreReduxType} from "./redux/reduxStore";
 import Friends from "./components/Friends/Friends";
-import DialogPage from "./components/DialogPage/DialogPage";
+import DialogsContainer from "./components/DialogPage/Dialogs/DialogsContainer";
 
-type RootStatePropsType = {
-    store: RootStoreReduxType
-}
 
-const App = (props: RootStatePropsType) => {
-    const state = props.store.getState()
+const App = () => {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -24,15 +19,11 @@ const App = (props: RootStatePropsType) => {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route path={'/dialogPage'}
-                           render={() => <DialogPage
-                               state={state.dialogsPage}
-                               dispatch={props.store.dispatch.bind(props.store)}
-                           />}/>
+                           render={() => <DialogsContainer/>}
+                    />
                     <Route path={'/profile'}
-                           render={() => <Profile
-                               state={state.profilePage}
-                               dispatch={props.store.dispatch.bind(props.store)}
-                           />}/>
+                           render={() => <Profile/>}
+                    />
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>

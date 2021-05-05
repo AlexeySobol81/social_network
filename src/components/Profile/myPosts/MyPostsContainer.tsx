@@ -1,33 +1,35 @@
-import React, {ChangeEvent} from 'react';
-import {addPostAC, PostType, updateNewPostTextAC} from "../../../redux/pfofileReducer";
-import {ActionsTypes} from "../../../redux/reduxStore";
+import React from 'react';
+import {addPostAC, updateNewPostTextAC} from "../../../redux/pfofileReducer";
 import MyPosts from "./MyPosts";
+import StoreContext from "../../../StoreContext";
 
-type PostsContainerPropsType = {
-    posts: Array<PostType>
-    newPostText: string
-    dispatch: (action: ActionsTypes) => void
-}
 
-const MyPostsContainer = (props: PostsContainerPropsType) => {
-
-    let addPost = () => {
-        props.dispatch(addPostAC())
-    }
-
-    let onPostChange = (text: string) => {
-        let action = updateNewPostTextAC(text)
-        props.dispatch(action)
-    }
+const MyPostsContainer = () => {
 
     return (
-        <MyPosts
-            posts={props.posts}
-            newPostText={props.newPostText}
-            // dispatch={props.dispatch}
-            onPostChange={onPostChange}
-            addPost={addPost}
-        />
+        <StoreContext.Consumer>
+            {
+                (store) => {
+
+                    let addPost = () => {
+                        store.dispatch(addPostAC())
+                    }
+
+                    let onPostChange = (text: string) => {
+                        let action = updateNewPostTextAC(text)
+                        store.dispatch(action)
+                    }
+
+                    return (<MyPosts
+                        posts={store.getState().profilePage.posts}
+                        newPostText={store.getState().profilePage.newPostText}
+                        // dispatch={props.dispatch}
+                        onPostChange={onPostChange}
+                        addPost={addPost}
+                    />)
+                }
+            }
+        </StoreContext.Consumer>
     )
 
 }
