@@ -2,16 +2,9 @@ import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css';
 import {Button, TextField} from "@material-ui/core";
 import Post from "./posts/Post";
-import {addPostAC, PostType, updateNewPostTextAC} from "../../../redux/pfofileReducer";
+import {MyPostContainerPropsType} from "./MyPostsContainer";
 
-type PostsPropsType = {
-    posts: Array<PostType>
-    newPostText: string
-    onPostChange: (text: string) => void
-    addPost: () => void
-}
-
-const MyPosts = (props: PostsPropsType) => {
+const MyPosts = (props: MyPostContainerPropsType) => {
 
     let postsElements = props.posts.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 

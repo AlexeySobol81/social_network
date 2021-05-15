@@ -22,38 +22,43 @@ const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
 const SEND_MESSAGE = "SEND-MESSAGE"
 
 const initialState = {
-        dialogs: [
-            {id: 1, name: 'Alex'},
-            {id: 2, name: 'Denis'},
-            {id: 3, name: 'Yulya'},
-            {id: 4, name: 'Dima'},
-        ] as Array<DialogType>,
-        messages: [
-            {id: 1, message: 'Hi'},
-            {id: 2, message: 'How are you?'},
-            {id: 3, message: 'Cool'},
-            {id: 4, message: 'Cool'},
-        ] as Array<MessageType>,
-        newMessageText: '' as string
-    }
+    dialogs: [
+        {id: 1, name: 'Alex'},
+        {id: 2, name: 'Denis'},
+        {id: 3, name: 'Yulya'},
+        {id: 4, name: 'Dima'},
+    ] as Array<DialogType>,
+    messages: [
+        {id: 1, message: 'Hi'},
+        {id: 2, message: 'How are you?'},
+        {id: 3, message: 'Cool'},
+        {id: 4, message: 'Cool'},
+    ] as Array<MessageType>,
+    newMessageText: '' as string
+}
 
-const dialogsReducer  = (state: InitialDialogPageStateType = initialState, action: ActionsTypes): InitialDialogPageStateType => {
-    switch (action.type){
+const dialogsReducer = (state: InitialDialogPageStateType = initialState, action: ActionsTypes): InitialDialogPageStateType => {
+
+    switch (action.type) {
         case "SEND-MESSAGE":
             let newMessage: MessageType = {
                 id: new Date().getTime(),
                 message: state.newMessageText
             }
-            state.messages.push(newMessage)
-            state.newMessageText=''
-            return state
+            return {
+                ...state,
+                newMessageText: '',
+                messages: [...state.messages, newMessage]
+            }
+
         case "UPDATE-NEW-MESSAGE-TEXT":
-            state.newMessageText = action.newText
-            return state
+            return {
+                ...state,
+                newMessageText: action.newText
+            }
         default:
             return state
     }
-
     return state
 }
 

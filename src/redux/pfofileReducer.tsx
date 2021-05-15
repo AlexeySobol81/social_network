@@ -10,7 +10,7 @@ export type InitialProfileReducerStateType = typeof initialState
 type AddPostACType = {
     type: typeof ADD_POST
 }
-type UpdateNewPostTextACType ={
+type UpdateNewPostTextACType = {
     type: typeof UPDATE_NEW_POST_TEXT
     newText: string
 }
@@ -28,18 +28,24 @@ const initialState = {
 
 const profileReducer = (state: InitialProfileReducerStateType = initialState, action: ActionsTypes): InitialProfileReducerStateType => {
     switch (action.type) {
+
         case 'ADD-POST':
             let newPost: PostType = {
                 id: new Date().getTime(),
                 message: state.newPostText,
                 likesCount: 0
             }
-            state.posts.push(newPost)
-            state.newPostText= ''
-            return state
+            return {
+                ...state,
+                newPostText: '',
+                posts: [...state.posts, newPost]
+            }
+
         case 'UPDATE-NEW-POST-TEXT':
-            state.newPostText = action.newText
-            return state
+            return {
+                ...state,
+                newPostText: action.newText
+            }
         default:
             return state
     }
